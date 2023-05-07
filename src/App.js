@@ -42,6 +42,11 @@ export default function App() {
 
   const handlePlayAgain = () => {
     setNewDice(generateRandomDie());
+    setAttempts(0);
+  };
+
+  const allEqual = (arr) => {
+    return arr.every((val) => val === arr[0]);
   };
 
   return (
@@ -63,7 +68,8 @@ export default function App() {
         ))}
       </div>
 
-      {newDice.filter((e) => e.isHeld === false).length === 0 ? (
+      {allEqual(newDice.map((e) => e.value)) &&
+      allEqual(newDice.map((e) => e.isHeld)) ? (
         <>
           <h2>YAY, YOU WON!🥳</h2>
           <h4>{`You took ${attempts} attempts 🤯`}</h4>
@@ -72,7 +78,8 @@ export default function App() {
         ""
       )}
 
-      {newDice.filter((e) => e.isHeld === false).length === 0 ? (
+      {allEqual(newDice.map((e) => e.value)) &&
+      allEqual(newDice.map((e) => e.isHeld)) ? (
         <button onClick={handlePlayAgain} className="play--btn">
           Play Again
         </button>
